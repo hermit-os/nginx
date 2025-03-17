@@ -291,7 +291,7 @@ ngx_init_signals(ngx_log_t *log)
         ngx_memzero(&sa, sizeof(struct sigaction));
 
         if (sig->handler) {
-            sa.sa_sigaction = sig->handler;
+            //sa.sa_sigaction = sig->handler;
             sa.sa_flags = SA_SIGINFO;
 
         } else {
@@ -441,7 +441,7 @@ ngx_signal_handler(int signo, siginfo_t *siginfo, void *ucontext)
         break;
     }
 
-    if (siginfo && siginfo->si_pid) {
+    /*if (siginfo && siginfo->si_pid) {
         ngx_log_error(NGX_LOG_NOTICE, ngx_cycle->log, 0,
                       "signal %d (%s) received from %P%s",
                       signo, sig->signame, siginfo->si_pid, action);
@@ -457,7 +457,7 @@ ngx_signal_handler(int signo, siginfo_t *siginfo, void *ucontext)
                       "the changing binary signal is ignored: "
                       "you should shutdown or terminate "
                       "before either old or new binary's process");
-    }
+    }*/
 
     if (signo == SIGCHLD) {
         ngx_process_get_status();

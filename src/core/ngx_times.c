@@ -126,7 +126,7 @@ ngx_time_update(void)
                        week[gmt.ngx_tm_wday], gmt.ngx_tm_mday,
                        months[gmt.ngx_tm_mon - 1], gmt.ngx_tm_year,
                        gmt.ngx_tm_hour, gmt.ngx_tm_min, gmt.ngx_tm_sec);
-
+/*
 #if (NGX_HAVE_GETTIMEZONE)
 
     tp->gmtoff = ngx_gettimezone();
@@ -146,7 +146,7 @@ ngx_time_update(void)
 
 #endif
 
-
+*/
     p1 = &cached_err_log_time[slot][0];
 
     (void) ngx_sprintf(p1, "%4d/%02d/%02d %02d:%02d:%02d",

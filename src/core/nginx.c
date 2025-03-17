@@ -202,7 +202,76 @@ main(int argc, char *const *argv)
     ngx_cycle_t      *cycle, init_cycle;
     ngx_conf_dump_t  *cd;
     ngx_core_conf_t  *ccf;
+    /*
+     *
+     *
+     * HERMIT
+     *
+     */
+    // /usr/local/nginx/conf/nginx.conf
+    mode_t mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
+    int res;
+    res = mkdir("/usr", mode);
+    if (res == -1) {
+        perror("mkdir() usr failed");
+        return -1;
+    }
+    res = mkdir("/usr/local", mode);
+    if (res == -1) {
+        perror("mkdir() local failed");
+        return -1;
+    }
+    res = mkdir("/usr/local/nginx", mode);
+    if (res == -1) {
+        perror("mkdir() nginx failed");
+        return -1;
+    }
+    res = mkdir("/usr/local/nginx/conf", mode);
+    if (res == -1) {
+        perror("mkdir() conf failed");
+        return -1;
+    }
+    res = mkdir("/usr/local/nginx/logs", mode);
+    if (res == -1) {
+        perror("mkdir() log failed");
+        return -1;
+    }
+    res = mkdir("/nginx", mode);
+    if (res == -1) {
+        perror("mkdir() log failed");
+        return -1;
+    }
+    
+    mode_t mode_f = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
+    int oflag_f = O_WRONLY | O_CREAT | O_TRUNC;
+    int fd;
 
+    fd = open("/usr/local/nginx/logs/error.log", oflag_f, mode_f);
+    if (fd == -1) {
+        perror("could not create error.log");
+        return -1;
+    }
+    close(fd);
+    
+    fd = open("/nginx.conf", oflag_f, mode_f);
+    if (fd == -1) {
+        perror("open() failed");
+        return -1;
+    }
+    char* config = "#user  www www;\n#worker_processes  0;\npid /nginx.pid;\nerror_log  /error.log  info;\nevents {\n    worker_connections   2000;\n    use poll;\n}\n\nhttp {\n    default_type  text/plain;\n    server {\n        listen        0.0.0.0;\n        server_name   default;\n    }\n}";
+    if (write(fd, config, strlen(config)) == -1) {
+        perror("write failed");
+        return -1;
+    }
+    close(fd);
+
+         
+
+    /*
+     *
+     *HERMIT END
+     *
+     */
     ngx_debug_init();
 
     if (ngx_strerror_init() != NGX_OK) {

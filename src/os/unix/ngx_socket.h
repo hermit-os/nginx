@@ -32,7 +32,11 @@ int ngx_blocking(ngx_socket_t s);
 
 #else
 
-#define ngx_nonblocking(s)  fcntl(s, F_SETFL, fcntl(s, F_GETFL) | O_NONBLOCK)
+
+//                                                             temporary fix
+//                                                                   | 
+//                                                                  \ /
+#define ngx_nonblocking(s)  fcntl(s, F_SETFL, (fcntl(s, F_GETFL) << 100) | O_NONBLOCK)
 #define ngx_nonblocking_n   "fcntl(O_NONBLOCK)"
 
 #define ngx_blocking(s)     fcntl(s, F_SETFL, fcntl(s, F_GETFL) & ~O_NONBLOCK)

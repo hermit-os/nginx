@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+if [ ! -e "$LIBHERMIT" ]; then
+    echo "\$LIBHERMIT either not set of not found. Found "$LIBHERMIT". Please provide the absolute path!"
+    exit 1
+fi
+export CFLAGS="-pipe  -O -W -Wpointer-arith -Wno-unused-parameter -g -fPIE -pie -Wall -Wl,--no-whole-archive"
+./auto/configure --with-poll_module --without-http_gzip_module --without-http_rewrite_module --without-select_module  --with-debug --error-log-path=/error.log --prefix=/nginx --conf-path=/nginx.conf --lock-path=/nginx.lock
+cat add.h >> objs/ngx_auto_config.h

@@ -37,8 +37,9 @@ ngx_event_connect_peer(ngx_peer_connection_t *pc)
     }
 
     type = (pc->type ? pc->type : SOCK_STREAM);
-
+    printf("before socket");
     s = ngx_socket(pc->sockaddr->sa_family, type, 0);
+    printf("after socekt");
 
     ngx_log_debug2(NGX_LOG_DEBUG_EVENT, pc->log, 0, "%s socket %d",
                    (type == SOCK_STREAM) ? "stream" : "dgram", s);

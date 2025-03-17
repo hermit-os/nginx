@@ -15,10 +15,10 @@ if [ -z "$NGX_GROUP" ]; then
 
             if grep nogroup /etc/group 2>&1 >/dev/null; then
                 echo "checking for nogroup group ... found"
-                NGX_GROUP=nogroup
+                NGX_GROUP=nogroup_
             else
                 echo "checking for nogroup group ... not found"
-                NGX_GROUP=nobody
+                NGX_GROUP=nobody_
             fi
         fi
     else
@@ -155,7 +155,7 @@ ngx_feature_run=no
 ngx_feature_incs=
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="crypt(\"test\", \"salt\");"
+ngx_feature_test="crypt_(\"test\", \"salt\");"
 . auto/feature
 
 
@@ -169,9 +169,9 @@ if [ $ngx_found = no ]; then
     ngx_feature_libs=-lcrypt
     . auto/feature
 
-    if [ $ngx_found = yes ]; then
-        CRYPT_LIB="-lcrypt"
-    fi
+    #if [ $ngx_found = yes ]; then
+    #    CRYPT_LIB="-lcrypt"
+    #fi
 fi
 
 
@@ -191,7 +191,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <fcntl.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="posix_fadvise(0, 0, 0, POSIX_FADV_SEQUENTIAL);"
+ngx_feature_test="posix_fadvise_(0, 0, 0, POSIX_FADV_SEQUENTIAL);"
 . auto/feature
 
 
@@ -201,7 +201,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <fcntl.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="fcntl(0, F_SETFL, O_DIRECT);"
+ngx_feature_test="fcntl(0, F_SETFL, O_DIRECT_);"
 . auto/feature
 
 
@@ -239,7 +239,7 @@ ngx_feature_incs="$NGX_INCLUDE_SYS_PARAM_H
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="struct statfs  fs;
-                  statfs(\".\", &fs);"
+                  statfs_(\".\", &fs);"
 . auto/feature
 
 
@@ -247,11 +247,11 @@ ngx_feature="statvfs()"
 ngx_feature_name="NGX_HAVE_STATVFS"
 ngx_feature_run=no
 ngx_feature_incs="#include <sys/types.h>
-                  #include <sys/statvfs.h>"
+                  #include <sys/statvfs_.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="struct statvfs  fs;
-                  statvfs(\".\", &fs);"
+ngx_feature_test="struct statvfs__  fs;
+                  statvfs____(\".\", &fs);"
 . auto/feature
 
 
@@ -261,7 +261,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <dlfcn.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="dlopen(NULL, RTLD_NOW | RTLD_GLOBAL); dlsym(NULL, \"\")"
+ngx_feature_test="dlopen_(NULL, RTLD_NOW | RTLD_GLOBAL); dlsym(NULL, \"\")"
 . auto/feature
 
 
@@ -307,7 +307,7 @@ ngx_feature_incs="#include <sched.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="cpu_set_t mask;
-                  CPU_ZERO(&mask);
+                  CPU_ZERO_(&mask);
                   sched_setaffinity(0, sizeof(cpu_set_t), &mask)"
 . auto/feature
 
@@ -318,7 +318,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <sys/socket.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_SETFIB, NULL, 0)"
+ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_SETFIB_, NULL, 0)"
 . auto/feature
 
 
@@ -328,7 +328,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <sys/socket.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_REUSEPORT, NULL, 0)"
+ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_REUSEPORT_, NULL, 0)"
 . auto/feature
 
 
@@ -338,7 +338,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <sys/socket.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER, NULL, 0)"
+ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_ACCEPTFILTER_, NULL, 0)"
 . auto/feature
 
 
@@ -350,7 +350,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <sys/socket.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_BINDANY, NULL, 0)"
+ngx_feature_test="setsockopt(0, SOL_SOCKET, SO_BINDANY_, NULL, 0)"
 . auto/feature
 
 
@@ -363,7 +363,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_TRANSPARENT, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_TRANSPARENT_, NULL, 0)"
 . auto/feature
 
 
@@ -376,7 +376,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_BINDANY, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_BINDANY_, NULL, 0)"
 . auto/feature
 
 
@@ -389,7 +389,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_BIND_ADDRESS_NO_PORT, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_BIND_ADDRESS_NO_PORT_, NULL, 0)"
 . auto/feature
 
 
@@ -402,7 +402,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_RECVDSTADDR, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_RECVDSTADDR_, NULL, 0)"
 . auto/feature
 
 
@@ -415,7 +415,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_SENDSRCADDR, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_SENDSRCADDR_, NULL, 0)"
 . auto/feature
 
 
@@ -431,7 +431,7 @@ ngx_feature_libs=
 ngx_feature_test="struct in_pktinfo  pkt;
                   pkt.ipi_spec_dst.s_addr = INADDR_ANY;
                   (void) pkt;
-                  setsockopt(0, IPPROTO_IP, IP_PKTINFO, NULL, 0)"
+                  setsockopt(0, IPPROTO_IP, IP_PKTINFO_, NULL, 0)"
 . auto/feature
 
 
@@ -444,7 +444,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IPV6, IPV6_RECVPKTINFO, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IPV6, IPV6_RECVPKTINFO_, NULL, 0)"
 . auto/feature
 
 
@@ -458,7 +458,7 @@ ngx_feature_incs="#include <sys/socket.h>
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="(void) IP_PMTUDISC_DO;
-                  setsockopt(0, IPPROTO_IP, IP_MTU_DISCOVER, NULL, 0)"
+                  setsockopt(0, IPPROTO_IP, IP_MTU_DISCOVER_, NULL, 0)"
 . auto/feature
 
 
@@ -470,7 +470,7 @@ ngx_feature_incs="#include <sys/socket.h>
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="(void) IPV6_PMTUDISC_DO;
-                  setsockopt(0, IPPROTO_IPV6, IPV6_MTU_DISCOVER, NULL, 0)"
+                  setsockopt(0, IPPROTO_IPV6, IPV6_MTU_DISCOVER_, NULL, 0)"
 . auto/feature
 
 
@@ -481,7 +481,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_DONTFRAG, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IP_DONTFRAG_, NULL, 0)"
 . auto/feature
 
 
@@ -492,7 +492,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/in.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_IP, IPV6_DONTFRAG, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_IP, IPV6_DONTFRAG_, NULL, 0)"
 . auto/feature
 
 
@@ -504,7 +504,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/tcp.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_DEFER_ACCEPT, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_DEFER_ACCEPT_, NULL, 0)"
 . auto/feature
 
 
@@ -516,9 +516,9 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/tcp.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_KEEPIDLE, NULL, 0);
-                  setsockopt(0, IPPROTO_TCP, TCP_KEEPINTVL, NULL, 0);
-                  setsockopt(0, IPPROTO_TCP, TCP_KEEPCNT, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_KEEPIDLE_, NULL, 0);
+                  setsockopt(0, IPPROTO_TCP, TCP_KEEPINTVL_, NULL, 0);
+                  setsockopt(0, IPPROTO_TCP, TCP_KEEPCNT_, NULL, 0)"
 . auto/feature
 
 
@@ -530,7 +530,7 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <netinet/tcp.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_FASTOPEN, NULL, 0)"
+ngx_feature_test="setsockopt(0, IPPROTO_TCP, TCP_FASTOPEN_, NULL, 0)"
 . auto/feature
 
 
@@ -548,7 +548,7 @@ ngx_feature_test="socklen_t optlen = sizeof(struct tcp_info);
                   ti.tcpi_rttvar = 0;
                   ti.tcpi_snd_cwnd = 0;
                   ti.tcpi_rcv_space = 0;
-                  getsockopt(0, IPPROTO_TCP, TCP_INFO, &ti, &optlen)"
+                  getsockopt(0, IPPROTO_TCP, TCP_INFO_, &ti, &optlen)"
 . auto/feature
 
 
@@ -558,7 +558,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <sys/socket.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="accept4(0, NULL, NULL, SOCK_NONBLOCK)"
+ngx_feature_test="accept4(0, NULL, NULL, SOCK_NONBLOCK_)"
 . auto/feature
 
 if [ $NGX_FILE_AIO = YES ]; then
@@ -633,7 +633,7 @@ END
 fi
 
 
-have=NGX_HAVE_UNIX_DOMAIN . auto/have
+#have=NGX_HAVE_UNIX_DOMAIN . auto/have
 
 ngx_feature_libs=
 
@@ -667,7 +667,7 @@ ngx_type="in_addr_t"; ngx_types="uint32_t u_int32_t"; . auto/types/typedef
 
 ngx_type="in_port_t"; ngx_types="u_short"; . auto/types/typedef
 
-ngx_type="rlim_t"; ngx_types="int"; . auto/types/typedef
+ngx_type="rlim_t_"; ngx_types="int"; . auto/types/typedef
 
 . auto/types/uintptr_t
 
@@ -698,8 +698,8 @@ ngx_feature_incs="#include <sys/socket.h>
                   #include <arpa/inet.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="struct sockaddr_in6  sin6;
-                  sin6.sin6_family = AF_INET6;
+ngx_feature_test="struct sockaddr_in6_  sin6;
+                  sin6.sin6_family = AF_INET6_;
                   (void) sin6"
 . auto/feature
 
@@ -720,7 +720,7 @@ ngx_feature_run=no
 ngx_feature_incs=
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="char buf[1]; ssize_t n; n = pread(0, buf, 1, 0);
+ngx_feature_test="char buf[1]; ssize_t n; n = pread_(0, buf, 1, 0);
                   if (n == -1) return 1"
 . auto/feature
 
@@ -731,7 +731,7 @@ ngx_feature_run=no
 ngx_feature_incs=
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="char buf[1]; ssize_t n; n = pwrite(1, buf, 1, 0);
+ngx_feature_test="char buf[1]; ssize_t n; n = pwrite_(1, buf, 1, 0);
                   if (n == -1) return 1"
 . auto/feature
 
@@ -747,7 +747,7 @@ ngx_feature_libs=
 ngx_feature_test="char buf[1]; struct iovec vec[1]; ssize_t n;
                   vec[0].iov_base = buf;
                   vec[0].iov_len = 1;
-                  n = pwritev(1, vec, 1, 0);
+                  n = pwritev_(1, vec, 1, 0);
                   if (n == -1) return 1"
 . auto/feature
 
@@ -760,7 +760,7 @@ ngx_feature_run=no
 ngx_feature_incs='#include <string.h>'
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="char *p; p = strerrordesc_np(0);
+ngx_feature_test="char *p; p = strerrordesc_np_(0);
                   if (p == NULL) return 1"
 . auto/feature
 
@@ -800,7 +800,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <time.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="struct tm t; time_t c=0; localtime_r(&c, &t)"
+ngx_feature_test="struct tm t; time_t c=0; localtime_r_(&c, &t)"
 . auto/feature
 
 
@@ -810,7 +810,7 @@ ngx_feature_run=no
 ngx_feature_incs="#include <time.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="struct timespec ts; clock_gettime(CLOCK_MONOTONIC, &ts)"
+ngx_feature_test="struct timespec ts; clock_gettime_(CLOCK_MONOTONIC, &ts)"
 . auto/feature
 
 
@@ -854,7 +854,7 @@ ngx_feature_test="void *p; p = memalign(4096, 4096);
 ngx_feature="mmap(MAP_ANON|MAP_SHARED)"
 ngx_feature_name="NGX_HAVE_MAP_ANON"
 ngx_feature_run=yes
-ngx_feature_incs="#include <sys/mman.h>"
+ngx_feature_incs="#include <sys/mman_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="void *p;
@@ -883,7 +883,7 @@ ngx_feature="System V shared memory"
 ngx_feature_name="NGX_HAVE_SYSVSHM"
 ngx_feature_run=yes
 ngx_feature_incs="#include <sys/ipc.h>
-                  #include <sys/shm.h>"
+                  #include <sys/shm_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="int  id;
@@ -900,7 +900,7 @@ ngx_feature_incs="#include <semaphore.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="sem_t  sem;
-                  if (sem_init(&sem, 1, 0) == -1) return 1;
+                  if (sem_init_(&sem, 1, 0) == -1) return 1;
                   sem_destroy(&sem);"
 . auto/feature
 
@@ -947,7 +947,7 @@ ngx_feature_test="struct msghdr  msg;
 ngx_feature="ioctl(FIONBIO)"
 ngx_feature_name="NGX_HAVE_FIONBIO"
 ngx_feature_run=no
-ngx_feature_incs="#include <sys/ioctl.h>
+ngx_feature_incs="#include <sys/ioctl_.h>
                   #include <stdio.h>
                   $NGX_INCLUDE_SYS_FILIO_H"
 ngx_feature_path=
@@ -959,7 +959,7 @@ ngx_feature_test="int i = FIONBIO; printf(\"%d\", i)"
 ngx_feature="ioctl(FIONREAD)"
 ngx_feature_name="NGX_HAVE_FIONREAD"
 ngx_feature_run=no
-ngx_feature_incs="#include <sys/ioctl.h>
+ngx_feature_incs="#include <sys/ioctl_.h>
                   #include <stdio.h>
                   $NGX_INCLUDE_SYS_FILIO_H"
 ngx_feature_path=
@@ -999,7 +999,7 @@ ngx_feature_incs="#include <dirent.h>
                   #include <stdio.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="struct dirent  dir; dir.d_type = DT_REG;
+ngx_feature_test="struct dirent  dir; dir.d_type_ = DT_REG;
                   printf(\"%d\", (int) dir.d_type)"
 . auto/feature
 
@@ -1010,7 +1010,7 @@ ngx_feature_run=no
 ngx_feature_incs=
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="sysconf(_SC_NPROCESSORS_ONLN)"
+ngx_feature_test="___sysconf(_SC_NPROCESSORS_ONLN_)"
 . auto/feature
 
 
@@ -1020,7 +1020,7 @@ ngx_feature_run=no
 ngx_feature_incs=
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="sysconf(_SC_LEVEL1_DCACHE_LINESIZE)"
+ngx_feature_test="sysconf(_SC_LEVEL1_DCACHE_LINESIZE_)"
 . auto/feature
 
 
@@ -1033,8 +1033,8 @@ ngx_feature_incs="#include <sys/types.h>
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="struct stat sb;
-                  openat(AT_FDCWD, \".\", O_RDONLY|O_NOFOLLOW);
-                  fstatat(AT_FDCWD, \".\", &sb, AT_SYMLINK_NOFOLLOW);"
+                  openat_(AT_FDCWD, \".\", O_RDONLY|O_NOFOLLOW);
+                  fstatat_(AT_FDCWD, \".\", &sb, AT_SYMLINK_NOFOLLOW);"
 . auto/feature
 
 
@@ -1047,6 +1047,6 @@ ngx_feature_incs="#include <sys/types.h>
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test='struct addrinfo *res;
-                  if (getaddrinfo("localhost", NULL, NULL, &res) != 0) return 1;
+                  if (getaddrinfo_("localhost", NULL, NULL, &res) != 0) return 1;
                   freeaddrinfo(res)'
 . auto/feature

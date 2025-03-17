@@ -1650,7 +1650,7 @@ ngx_http_variable_realpath_root(ngx_http_request_t *r,
     real = NULL;
 #endif
 
-    real = ngx_realpath(path.data, real);
+    //real = ngx_realpath(path.data, real);
 
     if (real == NULL) {
         ngx_log_error(NGX_LOG_CRIT, r->connection->log, ngx_errno,

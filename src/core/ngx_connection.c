@@ -491,7 +491,7 @@ ngx_open_listening_sockets(ngx_cycle_t *cycle)
 
             if (s == (ngx_socket_t) -1) {
                 ngx_log_error(NGX_LOG_EMERG, log, ngx_socket_errno,
-                              ngx_socket_n " %V failed", &ls[i].addr_text);
+                              ngx_socket_n " %V failed ngx_connection.c:495", &ls[i].addr_text);
                 return NGX_ERROR;
             }
 

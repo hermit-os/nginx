@@ -3,7 +3,7 @@
 # Copyright (C) Nginx, Inc.
 
 
-have=NGX_LINUX . auto/have_headers
+#have=NGX_LINUX . auto/have_headers
 
 CORE_INCS="$UNIX_INCS"
 CORE_DEPS="$UNIX_DEPS $LINUX_DEPS"
@@ -37,7 +37,7 @@ fi
 ngx_feature="epoll"
 ngx_feature_name="NGX_HAVE_EPOLL"
 ngx_feature_run=yes
-ngx_feature_incs="#include <sys/epoll.h>"
+ngx_feature_incs="#include <sys/epoll_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="int efd = 0;
@@ -125,7 +125,7 @@ ngx_feature_incs="#include <sys/types.h>
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="int fd; struct stat sb;
-                  fd = openat(AT_FDCWD, \".\", O_PATH|O_DIRECTORY|O_NOFOLLOW);
+                  fd = openat(AT_FDCWD, \".\", O_PATH_|O_DIRECTORY|O_NOFOLLOW);
                   if (fstatat(fd, \"\", &sb, AT_EMPTY_PATH) != 0) return 1"
 . auto/feature
 
@@ -142,7 +142,7 @@ ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="int s = 0, fd = 1;
                   ssize_t n; off_t off = 0;
-                  n = sendfile(s, fd, &off, 1);
+                  n = sendfile_(s, fd, &off, 1);
                   if (n == -1 && errno == ENOSYS) return 1"
 . auto/feature
 
@@ -163,19 +163,19 @@ ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="int s = 0, fd = 1;
                   ssize_t n; off_t off = 0;
-                  n = sendfile(s, fd, &off, 1);
+                  n = sendfile_(s, fd, &off, 1);
                   if (n == -1 && errno == ENOSYS) return 1"
 . auto/feature
 
 
-ngx_include="sys/prctl.h"; . auto/include
+ngx_include="sys/prctl_.h"; . auto/include
 
 # prctl(PR_SET_DUMPABLE)
 
 ngx_feature="prctl(PR_SET_DUMPABLE)"
 ngx_feature_name="NGX_HAVE_PR_SET_DUMPABLE"
 ngx_feature_run=yes
-ngx_feature_incs="#include <sys/prctl.h>"
+ngx_feature_incs="#include <sys/prctl_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="if (prctl(PR_SET_DUMPABLE, 1, 0, 0, 0) == -1) return 1"
@@ -187,7 +187,7 @@ ngx_feature_test="if (prctl(PR_SET_DUMPABLE, 1, 0, 0, 0) == -1) return 1"
 ngx_feature="prctl(PR_SET_KEEPCAPS)"
 ngx_feature_name="NGX_HAVE_PR_SET_KEEPCAPS"
 ngx_feature_run=yes
-ngx_feature_incs="#include <sys/prctl.h>"
+ngx_feature_incs="#include <sys/prctl_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="if (prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0) == -1) return 1"
@@ -199,8 +199,8 @@ ngx_feature_test="if (prctl(PR_SET_KEEPCAPS, 1, 0, 0, 0) == -1) return 1"
 ngx_feature="capabilities"
 ngx_feature_name="NGX_HAVE_CAPABILITIES"
 ngx_feature_run=no
-ngx_feature_incs="#include <linux/capability.h>
-                  #include <sys/syscall.h>"
+ngx_feature_incs="#include <linux/capability_.h>
+                  #include <sys/syscall_.h>"
 ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="struct __user_cap_data_struct    data;
@@ -221,7 +221,7 @@ ngx_feature_test="struct __user_cap_data_struct    data;
 ngx_feature="crypt_r()"
 ngx_feature_name="NGX_HAVE_GNU_CRYPT_R"
 ngx_feature_run=no
-ngx_feature_incs="#include <crypt.h>"
+ngx_feature_incs="#include <crypt_.h>"
 ngx_feature_path=
 ngx_feature_libs=-lcrypt
 ngx_feature_test="struct crypt_data  cd;
@@ -233,7 +233,7 @@ if [ $ngx_found = yes ]; then
 fi
 
 
-ngx_include="sys/vfs.h";     . auto/include
+ngx_include="sys/vfs_.h";     . auto/include
 
 
 # BPF sockhash
@@ -245,7 +245,7 @@ ngx_feature_incs="#include <linux/bpf.h>
                   #include <sys/syscall.h>"
 ngx_feature_path=
 ngx_feature_libs=
-ngx_feature_test="union bpf_attr attr = { 0 };
+ngx_feature_test="union bpf_attr_ attr = { 0 };
 
                   attr.map_flags = 0;
                   attr.map_type = BPF_MAP_TYPE_SOCKHASH;
@@ -272,7 +272,7 @@ ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="socklen_t optlen = sizeof(uint64_t);
                   uint64_t cookie;
-                  getsockopt(0, SOL_SOCKET, SO_COOKIE, &cookie, &optlen)"
+                  getsockopt_(0, SOL_SOCKET, SO_COOKIE, &cookie, &optlen)"
 . auto/feature
 
 if [ $ngx_found = yes ]; then
@@ -291,7 +291,7 @@ ngx_feature_path=
 ngx_feature_libs=
 ngx_feature_test="socklen_t optlen = sizeof(int);
                   int val;
-                  getsockopt(0, SOL_UDP, UDP_SEGMENT, &val, &optlen)"
+                  getsockopt_(0, SOL_UDP, UDP_SEGMENT, &val, &optlen)"
 . auto/feature
 
 

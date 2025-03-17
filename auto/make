@@ -21,7 +21,7 @@ ngx_use_pch=`echo $NGX_USE_PCH | sed -e "s/\//$ngx_regex_dirsep/g"`
 
 cat << END                                                     > $NGX_MAKEFILE
 
-CC =	$CC
+CC =	/opt/hermit/bin/x86_64-hermit-gcc
 CFLAGS = $CFLAGS
 CPP =	$CPP
 LINK =	$LINK
