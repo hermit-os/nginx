@@ -242,23 +242,46 @@ main(int argc, char *const *argv)
         return -1;
     }
     
+    res = mkdir("/nginx/logs", mode);
+    if (res == -1) {
+        perror("mkdir() log failed");
+        return -1;
+    }
+    res = mkdir("/dev", mode);
+    if (res == -1) {
+        perror("mkdir() log failed");
+        return -1;
+    }
     mode_t mode_f = S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH;
     int oflag_f = O_WRONLY | O_CREAT | O_TRUNC;
     int fd;
-
+/*
     fd = open("/usr/local/nginx/logs/error.log", oflag_f, mode_f);
     if (fd == -1) {
         perror("could not create error.log");
         return -1;
     }
     close(fd);
-    
+    // open again!!!
+    fd = open("/usr/local/nginx/logs/error.log", oflag_f, mode_f);
+    if (fd == -1) {
+        perror("could not create error.log");
+        return -1;
+    }
+    close(fd);
+    */
     fd = open("/nginx.conf", oflag_f, mode_f);
     if (fd == -1) {
         perror("open() failed");
         return -1;
     }
-    char* config = "#user  www www;\n#worker_processes  0;\npid /nginx.pid;\nerror_log  /error.log  info;\nevents {\n    worker_connections   2000;\n    use poll;\n}\n\nhttp {\n    default_type  text/plain;\n    server {\n        listen        0.0.0.0;\n        server_name   default;\n    }\n}";
+    /*fd = open("/dev/zero", oflag_f, mode_f);
+    if (fd == -1) {
+        perror("open() failed");
+        return -1;
+    }*/
+    char* config = "#user  www www;\n#worker_processes  1;\ndaemon off;\n  	master_process off;\npid /nginx.pid;\nerror_log  /error.log  info;\nevents {\n    worker_connections   2000;\n    use poll;\n}\n\nhttp {\n    default_type  text/plain;\n    server {\n        listen        0.0.0.0;\n        server_name   default;\n    }\n}";
+    char* config2 = "worker_processes  0;\n\npid        /nginx.pid;\n\n\nevents {\n    worker_connections  1024;\n}\n\n\nhttp {\n    default_type  text/plain;\n\n    keepalive_timeout  65;\n\n    server {\n        listen       80;\n        server_name  0.0.0.0;\n\n    }\n}\n";
     if (write(fd, config, strlen(config)) == -1) {
         perror("write failed");
         return -1;
@@ -1263,21 +1286,21 @@ ngx_core_module_init_conf(ngx_cycle_t *cycle, void *conf)
         if (pwd == NULL) {
             ngx_log_error(NGX_LOG_EMERG, cycle->log, ngx_errno,
                           "getpwnam(\"" NGX_USER "\") failed");
-            return NGX_CONF_ERROR;
+            //return NGX_CONF_ERROR;
         }
 
         ccf->username = NGX_USER;
-        ccf->user = pwd->pw_uid;
+        ccf->user = 1;//pwd->pw_uid;
 
         ngx_set_errno(0);
         grp = getgrnam(NGX_GROUP);
         if (grp == NULL) {
             ngx_log_error(NGX_LOG_EMERG, cycle->log, ngx_errno,
                           "getgrnam(\"" NGX_GROUP "\") failed");
-            return NGX_CONF_ERROR;
+            //return NGX_CONF_ERROR;
         }
 
-        ccf->group = grp->gr_gid;
+        ccf->group = 1;// grp->gr_gid;
     }
 
 

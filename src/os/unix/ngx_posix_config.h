@@ -223,13 +223,13 @@ struct cmsghdr {
 
 
 /* Bits in `sa_flags'.  */
-#define	SA_NOCLDSTOP  1		 /* Don't send SIGCHLD when children stop.  */
-#define SA_NOCLDWAIT  2		 /* Don't create zombie on child death.  */
-#define SA_SIGINFO    4		 /* Invoke signal-catching function with */
-# define SA_RESTART   0x10000000 /* Restart syscall on signal return.  */
-# define SA_NODEFER   0x40000000 /* Don't automatically block the signal when */
-# define SA_RESETHAND 0x80000000 /* Reset to SIG_DFL on entry to handler.  */
-# define SA_INTERRUPT 0x20000000 /* Historical no-op.  */
+//#define	SA_NOCLDSTOP  1		 /* Don't send SIGCHLD when children stop.  */
+//#define SA_NOCLDWAIT  2		 /* Don't create zombie on child death.  */
+//#define SA_SIGINFO    4		 /* Invoke signal-catching function with */
+//# define SA_RESTART   0x10000000 /* Restart syscall on signal return.  */
+//# define SA_NODEFER   0x40000000 /* Don't automatically block the signal when */
+//# define SA_RESETHAND 0x80000000 /* Reset to SIG_DFL on entry to handler.  */
+//# define SA_INTERRUPT 0x20000000 /* Historical no-op.  */
 
 /* Some aliases for the SA_ constants.  */
 # define SA_NOMASK    SA_NODEFER
@@ -255,8 +255,8 @@ struct cmsghdr {
 #define getppid(x) (-1)
 
 
-#define getpwnam(x) (1)
-#define getgrnam(x) (1)
+#define getpwnam(x) (NULL)
+#define getgrnam(x) (NULL)
 #define chown(x, y, z) (1)
 
 #define gethostbyname(x) (NULL)

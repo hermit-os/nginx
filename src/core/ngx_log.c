@@ -452,7 +452,7 @@ ngx_log_redirect_stderr(ngx_cycle_t *cycle)
             ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
                           ngx_set_stderr_n " failed");
 
-            return NGX_ERROR;
+            //return NGX_ERROR;
         }
     }
 

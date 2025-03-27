@@ -75,7 +75,8 @@ typedef struct {
 #define NGX_FILE_CREATE_OR_OPEN  O_CREAT
 #define NGX_FILE_OPEN            0
 #define NGX_FILE_TRUNCATE        (O_CREAT|O_TRUNC)
-#define NGX_FILE_APPEND          (O_WRONLY|O_APPEND)
+// 					HERMIT DOES NOT SUPPORT APPEND YET!
+#define NGX_FILE_APPEND          (O_WRONLY/*|O_APPEND*/|O_TRUNC|O_CREAT)
 #define NGX_FILE_NONBLOCK        O_NONBLOCK
 
 #if (NGX_HAVE_OPENAT)

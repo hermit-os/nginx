@@ -175,7 +175,7 @@ if [ "$NGX_PLATFORM" != win32 ]; then
 
     if [ $ngx_found = yes ]; then
         MAIN_LINK="-Wl,-E \
-	-pie -Wl,--whole-archive $LIBHERMIT -Wl,--no-whole-archive"
+	-pie -Wl,--whole-archive $LIBHERMIT -Wl,--no-whole-archive -pthread"
     fi
 
 
